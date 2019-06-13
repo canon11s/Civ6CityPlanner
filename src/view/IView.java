@@ -1,5 +1,9 @@
 package view;
 
+import java.awt.event.ActionListener;
+
+import controller.Controller;
+
 public interface IView {
   /**
    * Show the board.
@@ -16,4 +20,17 @@ public interface IView {
    * Redraw the scene
    */
   void redraw();
+
+  /**
+   * Set the controller for the view
+   */
+  void setController(Controller controller);
+
+  void addActionListener(ActionListener actionListener);
+
+  util.Terrain chosenTerrain();
+
+  util.Feature chosenFeature();
+
+  boolean chosenHills();
 }

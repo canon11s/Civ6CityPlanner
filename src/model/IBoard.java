@@ -62,6 +62,15 @@ public interface IBoard {
    *
    * @param tileQ q position of the tile, must be >= 0
    * @param tileR r position of the tile, must be >= 0
+   * @return boolean if tile has hills
+   * @throws IllegalArgumentException if q, r invalid
+   */
+  boolean hasHills(int tileQ, int tileR) throws IllegalArgumentException;
+
+  /**
+   *
+   * @param tileQ q position of the tile, must be >= 0
+   * @param tileR r position of the tile, must be >= 0
    * @param feat feature that will be added to the given tile
    * @throws IllegalArgumentException q, r not valid, or feature not valid for the tile type
    */

@@ -25,4 +25,52 @@ public enum Terrain {
       }
       return Color.BLACK;
     }
+
+    public static String[] stringArray() {
+      return new String[]{"Grassland", "Plains", "Desert", "Tundra", "Snow", "Coast", "Lake", "Ocean"};
+    }
+
+    public static Terrain stringToEnum(String str) {
+      switch (str) {
+        case "Grassland":
+          return GRASSLAND;
+        case "Plains":
+          return PLAINS;
+        case "Desert":
+          return DESERT;
+        case "Tundra":
+          return TUNDRA;
+        case "Snow":
+          return SNOW;
+        case "Coast":
+          return COAST;
+        case "Lake":
+          return LAKE;
+        case "Ocean":
+          return OCEAN;
+      }
+      throw new IllegalArgumentException("String '" + str + "' not found in enum.");
+    }
+
+  public static String enumToString(Terrain terr) {
+    switch (terr) {
+      case GRASSLAND:
+        return "Grassland";
+      case PLAINS:
+        return "Plains";
+      case DESERT:
+        return "Desert";
+      case TUNDRA:
+        return "Tundra";
+      case SNOW:
+        return "Snow";
+      case COAST:
+        return "Coast";
+      case LAKE:
+        return "Lake";
+      case OCEAN:
+        return "Ocean";
+    }
+    throw new IllegalArgumentException("Enum value " + terr.toString() + " not found in enum.");
+  }
 }

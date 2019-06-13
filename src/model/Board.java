@@ -10,7 +10,7 @@ public class Board implements IBoard {
   private Tile[][] board;
 
   public Board() {
-    size = 5;
+    size = 10;
     board = new Tile[2 * size + 1][2 * size + 1];
     for (int i = 0; i <= 2 * size; i++) {
       for (int j = Math.max(size - i, 0); j <= Math.min(2 * size, 3 * size - i); j++) {
@@ -53,6 +53,14 @@ public class Board implements IBoard {
   public void setTileHills(int tileQ, int tileR, boolean hills) throws IllegalArgumentException {
     try {
       board[tileQ][tileR].setHills(hills);
+    } catch (IllegalStateException i) {
+      throw new IllegalArgumentException(i.getMessage());
+    }
+  }
+
+  public boolean hasHills(int tileQ, int tileR) throws IllegalArgumentException {
+    try {
+      return board[tileQ][tileR].hasHills();
     } catch (IllegalStateException i) {
       throw new IllegalArgumentException(i.getMessage());
     }

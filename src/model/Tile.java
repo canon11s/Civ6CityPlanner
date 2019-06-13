@@ -29,6 +29,10 @@ public class Tile {
     this.hills = hills;
   }
 
+  public boolean hasHills() {
+    return this.hills;
+  }
+
   public void setFeature(util.Feature feature) {
     this.feature = feature;
   }
