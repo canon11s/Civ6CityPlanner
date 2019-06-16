@@ -11,10 +11,14 @@ public interface IView {
   void display();
 
   /**
-   * Set the size of the hex tiles in the view - for visibility
-   * @param radius pixels size of one hex tile
+   * Increase hex size - zoom in effect
    */
-  void setHexRadius(int radius);
+  void increaseHexRadius();
+
+  /**
+   * Decrease hex size - zoom out effect
+   */
+  void decreaseHexRadius();
 
   /**
    * Redraw the scene

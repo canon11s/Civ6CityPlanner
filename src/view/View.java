@@ -13,10 +13,13 @@ public class View extends JFrame implements IView {
   private int hexRadius;
   private JButton editTerrain;
   private JButton editRiver;
+  private JButton zoomIn;
+  private JButton zoomOut;
   private JComboBox terrainComboBox;
   private JCheckBox hillsCheckBox;
   private JComboBox featureComboBox;
   private JScrollPane scrollPane;
+  private int[] hexSizes = new int[]{20, 35, 50, 75, 100};
 
 
   public View(IBoard board) {
@@ -58,11 +61,23 @@ public class View extends JFrame implements IView {
     terrainPanel.add(editRiver);
 
     JPanel settlementPanel = new JPanel();
+    JPanel settingsPanel = new JPanel();
 
     //Tabbed pane for control
     JTabbedPane controlPane = new JTabbedPane();
     controlPane.addTab("Terrain and Rivers", terrainPanel);
     controlPane.addTab("Settlement", settlementPanel);
+    controlPane.addTab("Settings", settingsPanel);
+
+    JLabel zoomLabel = new JLabel("Zoom");
+    zoomIn = new JButton("+");
+    zoomOut = new JButton("-");
+
+    settingsPanel.add(zoomOut);
+    settingsPanel.add(zoomLabel);
+    settingsPanel.add(zoomIn);
+    zoomIn.setActionCommand("Zoom In");
+    zoomOut.setActionCommand("Zoom Out");
 
     mainPanel.add(scrollPane);
     mainPanel.add(controlPane);
@@ -81,9 +96,35 @@ public class View extends JFrame implements IView {
   }
 
   @Override
-  public void setHexRadius(int radius) {
-    hexRadius = radius;
-    boardPanel.setHexRadius(radius);
+  public void increaseHexRadius() {
+    if (hexRadius == hexSizes[0]) {
+      hexRadius = hexSizes[1];
+    } else if (hexRadius == hexSizes[1]) {
+      hexRadius = hexSizes[2];
+    } else if (hexRadius == hexSizes[2]) {
+      hexRadius = hexSizes[3];
+    } else if (hexRadius == hexSizes[3]) {
+      hexRadius = hexSizes[4];
+    } else if (hexRadius != hexSizes[4]) {
+      throw new IllegalStateException("Unrecognized hex radius: " + Integer.toString(hexRadius));
+    }
+    boardPanel.setHexRadius(hexRadius);
+  }
+
+  @Override
+  public void decreaseHexRadius() {
+    if (hexRadius == hexSizes[4]) {
+      hexRadius = hexSizes[3];
+    } else if (hexRadius == hexSizes[3]) {
+      hexRadius = hexSizes[2];
+    } else if (hexRadius == hexSizes[2]) {
+      hexRadius = hexSizes[1];
+    } else if (hexRadius == hexSizes[1]) {
+      hexRadius = hexSizes[0];
+    } else if (hexRadius != hexSizes[0]) {
+      throw new IllegalStateException("Unrecognized hex radius: " + Integer.toString(hexRadius));
+    }
+    boardPanel.setHexRadius(hexRadius);
   }
 
   @Override
@@ -100,6 +141,8 @@ public class View extends JFrame implements IView {
   public void addActionListener(ActionListener actionListener) {
     editTerrain.addActionListener(actionListener);
     editRiver.addActionListener(actionListener);
+    zoomIn.addActionListener(actionListener);
+    zoomOut.addActionListener(actionListener);
   }
 
   @Override

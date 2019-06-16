@@ -70,6 +70,8 @@ public class Controller {
     //add all the buttons. The action command needs to match the string in the map
     buttonClickedMap.put("Edit Terrain", new EditTerrainAction());
     buttonClickedMap.put("Edit River", new EditRiverAction());
+    buttonClickedMap.put("Zoom In", new ZoomInAction());
+    buttonClickedMap.put("Zoom Out", new ZoomOutAction());
 
     buttonListener.setButtonClickedActionMap(buttonClickedMap);
     this.view.addActionListener(buttonListener);
@@ -99,6 +101,19 @@ public class Controller {
       mode = ControllerMode.EDIT_RIVER;
     }
   }
+
+  class ZoomInAction implements Runnable {
+    public void run() {
+      view.increaseHexRadius();
+    }
+  }
+
+  class ZoomOutAction implements Runnable {
+    public void run() {
+      view.decreaseHexRadius();
+    }
+  }
+
 
   private Point pixToTileCoord(int xPixel, int yPixel, int hexRadius) {
     double q = (Math.sqrt(3)/3 * xPixel  -  1./3 * yPixel) / hexRadius;

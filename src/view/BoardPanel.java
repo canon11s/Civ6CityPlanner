@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,11 +28,19 @@ public class BoardPanel extends JPanel {
 
 
   public BoardPanel(IBoard board) {
+
     addMouseListener(new MouseAdapter() {
       public void mousePressed(MouseEvent me) {
+        requestFocusInWindow();
         controller.mouseClick(me.getX(), me.getY(), hexRadius);
       }
     });
+
+    addKeyListener(new KeyAdapter() {
+      public void keyPressed(KeyEvent ke) {
+      }
+    });
+
     hexRadius = 50;
     this.board = board;
     borderThickness = 4;
@@ -136,7 +147,6 @@ public class BoardPanel extends JPanel {
   public void setController(Controller controller) {
     this.controller = controller;
   }
-
 }
 
 

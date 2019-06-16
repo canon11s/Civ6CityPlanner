@@ -12,7 +12,7 @@ public class Board implements IBoard {
   private Tile[][] board;
 
   public Board() {
-    size = 2;
+    size = 10;
     board = new Tile[2 * size + 1][2 * size + 1];
     for (int i = 0; i <= 2 * size; i++) {
       for (int j = Math.max(size - i, 0); j <= Math.min(2 * size, 3 * size - i); j++) {
@@ -157,6 +157,4 @@ public class Board implements IBoard {
         break;
     }
   }
-
-
 }
