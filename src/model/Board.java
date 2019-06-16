@@ -1,5 +1,7 @@
 package model;
 
+import util.TileEdge;
+
 public class Board implements IBoard {
 
   /**
@@ -10,13 +12,24 @@ public class Board implements IBoard {
   private Tile[][] board;
 
   public Board() {
-    size = 10;
+    size = 2;
     board = new Tile[2 * size + 1][2 * size + 1];
     for (int i = 0; i <= 2 * size; i++) {
       for (int j = Math.max(size - i, 0); j <= Math.min(2 * size, 3 * size - i); j++) {
         board[i][j] = new Tile();
       }
     }
+//    for (boolean[] a : rivers) {
+//      for (boolean b : a) {
+//        if (b) {
+//          System.out.print('X');
+//        } else {
+//          System.out.print('O');
+//        }
+//        System.out.print(" ");
+//      }
+//      System.out.print("\n");
+//    }
   }
 
   @Override
@@ -77,6 +90,11 @@ public class Board implements IBoard {
   }
 
   @Override
+  public void getTileFeature(int tileQ, int tileR) throws IllegalArgumentException {
+
+  }
+
+  @Override
   public void removeTileFeature(int tileQ, int tileR) throws IllegalArgumentException, IllegalStateException {
     try {
       board[tileQ][tileR].removeFeature();
@@ -95,4 +113,50 @@ public class Board implements IBoard {
     }
     return boardStr.toString();
   }
+
+  @Override
+  public boolean[] getRivers(int tileQ, int tileR) {
+    return board[tileQ][tileR].getRivers();
+  }
+
+  @Override
+  public void flipRiver(int tileQ, int tileR, TileEdge edge) {
+    boolean river = !board[tileQ][tileR].hasRiver(edge);
+    board[tileQ][tileR].setRiver(river, edge);
+    System.out.println("(" + Integer.toString(tileQ) + ", " + Integer.toString(tileR) + ")");
+    switch (edge) {
+      case LEFT:
+        if (tileQ > Math.max(size - tileR, 0)) {
+          board[tileQ - 1][tileR].setRiver(river, TileEdge.RIGHT);
+        }
+        break;
+      case RIGHT:
+        if (tileQ < Math.min(2 * size, 3 * size - tileR)) {
+          board[tileQ + 1][tileR].setRiver(river, TileEdge.LEFT);
+        }
+        break;
+      case UPPER_LEFT:
+        if (tileR > size - tileQ && tileR != 0) {
+          board[tileQ][tileR - 1].setRiver(river, TileEdge.BOTTOM_RIGHT);
+        }
+        break;
+      case BOTTOM_LEFT:
+        if (tileQ != 0 && tileR != 2 * size) {
+          board[tileQ - 1][tileR + 1].setRiver(river, TileEdge.UPPER_RIGHT);
+        }
+        break;
+      case UPPER_RIGHT:
+        if (tileQ != 4 && tileR != 0) {
+          board[tileQ + 1][tileR - 1].setRiver(river, TileEdge.BOTTOM_LEFT);
+        }
+        break;
+      case BOTTOM_RIGHT:
+        if (tileQ < 3 * size - tileR && tileR != 2 * size) {
+          board[tileQ][tileR + 1].setRiver(river, TileEdge.UPPER_LEFT);
+        }
+        break;
+    }
+  }
+
+
 }

@@ -5,16 +5,33 @@ package model;
  */
 public class Tile {
   /**
-   * Fields for a tile
+   * terrain
+   * hills
+   * feature
+   * rivers - boolean array containing rivers information:
+   * rivers[0] - left-most, vertical river. rivers[1] is one position clockwise,
+   * continuing up through rivers[5].
    */
   private util.Terrain terrain;
   private boolean hills;
   private util.Feature feature;
+  private boolean leftRiver;
+  private boolean upperLeftRiver;
+  private boolean upperRightRiver;
+  private boolean rightRiver;
+  private boolean bottomRightRiver;
+  private boolean bottomLeftRiver;
 
   public Tile() {
     terrain = util.Terrain.GRASSLAND;
     hills = false;
     feature = util.Feature.NONE;
+    leftRiver = false;
+    upperLeftRiver = false;
+    upperRightRiver = false;
+    rightRiver = false;
+    bottomRightRiver = false;
+    bottomLeftRiver = false;
   }
 
   public void setTerrain(util.Terrain terrain) {
@@ -52,6 +69,52 @@ public class Tile {
     } else {
       hillsStr = "0";
     }
-    return new StringBuilder(terrain.toString() + " " + hillsStr + " " + feature.toString());
+    return new StringBuilder(terrain + " " + hillsStr + " " + feature.toString());
+  }
+
+  public boolean[] getRivers() {
+    return new boolean[]{leftRiver, upperLeftRiver, upperRightRiver,
+            rightRiver, bottomRightRiver, bottomLeftRiver};
+  }
+
+  public void setRiver(boolean river, util.TileEdge edge) {
+    switch (edge) {
+      case LEFT:
+        leftRiver = river;
+        break;
+      case RIGHT:
+        rightRiver = river;
+        break;
+      case UPPER_LEFT:
+        upperLeftRiver = river;
+        break;
+      case BOTTOM_LEFT:
+        bottomLeftRiver = river;
+        break;
+      case UPPER_RIGHT:
+        upperRightRiver = river;
+        break;
+      case BOTTOM_RIGHT:
+        bottomRightRiver = river;
+        break;
+    }
+  }
+
+  public boolean hasRiver(util.TileEdge edge) {
+    switch (edge) {
+      case LEFT:
+        return leftRiver;
+      case RIGHT:
+        return rightRiver;
+      case UPPER_LEFT:
+        return upperLeftRiver;
+      case BOTTOM_LEFT:
+        return bottomLeftRiver;
+      case UPPER_RIGHT:
+        return upperRightRiver;
+      case BOTTOM_RIGHT:
+        return bottomRightRiver;
+    }
+    throw new IllegalArgumentException("Edge not recognized");
   }
 }

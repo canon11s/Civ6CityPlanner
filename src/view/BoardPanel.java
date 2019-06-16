@@ -27,13 +27,12 @@ public class BoardPanel extends JPanel {
   public BoardPanel(IBoard board) {
     addMouseListener(new MouseAdapter() {
       public void mousePressed(MouseEvent me) {
-        Point p = pixToCoord(me.getX(), me.getY());
-        controller.mouseClick(p.x, p.y);
+        controller.mouseClick(me.getX(), me.getY(), hexRadius);
       }
     });
     hexRadius = 50;
     this.board = board;
-    borderThickness = 3;
+    borderThickness = 4;
     this.setBackground(new Color(109, 99, 52));
     this.setPreferredSize(new Dimension((int) (hexRadius * (Math.sqrt(3) * 2 * board.getSize()
             +  Math.sqrt(3)/2. * 2 * board.getSize())),
@@ -64,10 +63,46 @@ public class BoardPanel extends JPanel {
         }
       }
     }
+    for (int i = 0; i <= 2 * board.getSize(); i++) {
+      for (int j = Math.max(board.getSize() - i, 0); j <= Math.min(2 * board.getSize(), 3 * board.getSize() - i); j++) {
+        drawRivers((int) (hexRadius * (Math.sqrt(3) * i  +  Math.sqrt(3)/2. * j)), (int)
+                (hexRadius * (3./2 * j)), board.getRivers(i, j), g2);
+      }
+    }
   }
 
   public void setHexRadius(int size) {
     hexRadius = size;
+  }
+
+  private void drawRivers(int x, int y, boolean[] rivers, Graphics2D g2) {
+    g2.setPaint(Color.BLUE);
+    g2.setStroke(new BasicStroke(borderThickness * 2));
+    if (rivers[0]) {
+      g2.drawLine((int) (x - hexRadius * Math.sqrt(3) / 2), (y - hexRadius / 2),
+              (int) (x - hexRadius * Math.sqrt(3) / 2), (y + hexRadius / 2));
+    }
+    if (rivers[1]) {
+      g2.drawLine((int) (x - hexRadius * Math.sqrt(3) / 2), (int) (y - hexRadius / 2),
+              x, y - hexRadius);
+    }
+    if (rivers[2]) {
+      g2.drawLine(x, y - hexRadius,
+              (int) (x + hexRadius * Math.sqrt(3) / 2), (y - hexRadius / 2));
+    }
+    if (rivers[3]) {
+      g2.drawLine((int) (x + hexRadius * Math.sqrt(3) / 2), (int) (y - hexRadius / 2),
+              (int) (x + hexRadius * Math.sqrt(3) / 2), (int) (y + hexRadius / 2));
+    }
+    if (rivers[4]) {
+      g2.drawLine((int) (x + hexRadius * Math.sqrt(3) / 2), (int) (y + hexRadius / 2),
+              x, y + hexRadius);
+    }
+    if (rivers[5]) {
+      g2.drawLine(x, y + hexRadius,
+              (int) (x - hexRadius * Math.sqrt(3) / 2), (int) (y + hexRadius / 2));
+    }
+
   }
 
   private void drawHills(int x, int y, Graphics2D g2) {
@@ -96,27 +131,7 @@ public class BoardPanel extends JPanel {
     return polygon;
   }
 
-  private Point pixToCoord(int xPixel, int yPixel) {
-    double q = (Math.sqrt(3)/3 * xPixel  -  1./3 * yPixel) / hexRadius;
-    double r = 2./3 * yPixel / hexRadius;
-    double x = q;
-    double y = r;
-    double z = -q-r;
-    long rx = Math.round(x);
-    long ry = Math.round(y);
-    long rz = Math.round(z);
-    double x_diff = Math.abs(rx - x);
-    double y_diff = Math.abs(ry - y);
-    double z_diff = Math.abs(rz - z);
 
-    if (x_diff > y_diff && x_diff > z_diff) {
-      rx = -ry - rz;
-    }
-    else if (y_diff > z_diff) {
-      ry = -rx - rz;
-    }
-    return new Point((int) rx, (int) ry);
-  }
 
   public void setController(Controller controller) {
     this.controller = controller;

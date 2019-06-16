@@ -12,6 +12,7 @@ public class View extends JFrame implements IView {
   private BoardPanel boardPanel;
   private int hexRadius;
   private JButton editTerrain;
+  private JButton editRiver;
   private JComboBox terrainComboBox;
   private JCheckBox hillsCheckBox;
   private JComboBox featureComboBox;
@@ -32,7 +33,7 @@ public class View extends JFrame implements IView {
     this.setPreferredSize(new Dimension(800, 800));
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-    JPanel buttonPanel = new JPanel(new FlowLayout());
+    JPanel terrainPanel = new JPanel(new FlowLayout());
     //Terrain, hills, feature combo boxes
     String[] terrainStrings = util.Terrain.stringArray();
     terrainComboBox = new JComboBox(terrainStrings);
@@ -42,13 +43,29 @@ public class View extends JFrame implements IView {
     //Button to be enter setting terrain mode
     editTerrain = new JButton("Set tiles");
     editTerrain.setActionCommand("Edit Terrain");
-    buttonPanel.add(terrainComboBox);
-    buttonPanel.add(hillsCheckBox);
-    buttonPanel.add(featureComboBox);
-    buttonPanel.add(editTerrain);
+    terrainPanel.add(terrainComboBox);
+    terrainPanel.add(hillsCheckBox);
+    terrainPanel.add(featureComboBox);
+    terrainPanel.add(editTerrain);
+
+    JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+    separator.setPreferredSize(new Dimension(10, 20));
+    terrainPanel.add(separator);
+
+    editRiver = new JButton("Add/Remove River");
+    editRiver.setActionCommand("Edit River");
+
+    terrainPanel.add(editRiver);
+
+    JPanel settlementPanel = new JPanel();
+
+    //Tabbed pane for control
+    JTabbedPane controlPane = new JTabbedPane();
+    controlPane.addTab("Terrain and Rivers", terrainPanel);
+    controlPane.addTab("Settlement", settlementPanel);
 
     mainPanel.add(scrollPane);
-    mainPanel.add(buttonPanel);
+    mainPanel.add(controlPane);
     this.add(mainPanel);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.pack();
@@ -82,6 +99,7 @@ public class View extends JFrame implements IView {
   @Override
   public void addActionListener(ActionListener actionListener) {
     editTerrain.addActionListener(actionListener);
+    editRiver.addActionListener(actionListener);
   }
 
   @Override
@@ -98,6 +116,4 @@ public class View extends JFrame implements IView {
   public boolean chosenHills() {
     return hillsCheckBox.isSelected();
   }
-
-
 }

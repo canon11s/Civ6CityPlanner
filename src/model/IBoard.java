@@ -17,6 +17,7 @@ public interface IBoard {
 
   /**
    * Get the size of the IBoard - distance from center hex to outer edge
+   * Example: a board that is 5 hexes across through the center has a "size" of 2.
    *
    * @return int size of the board
    */
@@ -28,7 +29,7 @@ public interface IBoard {
   void resetTiles();
 
   /**
-   * Reset the size of the game board to standard size - 5 tiles from center to edge
+   * Reset the size of the game board to standard size - 10 tiles from center to edge
    */
   void resetSize();
 
@@ -80,6 +81,14 @@ public interface IBoard {
    *
    * @param tileQ q position of the tile, must be >= 0
    * @param tileR r position of the tile, must be >= 0
+   * @throws IllegalArgumentException q, r not valid, or feature not valid for the tile type
+   */
+  void getTileFeature(int tileQ, int tileR) throws IllegalArgumentException;
+
+  /**
+   *
+   * @param tileQ q position of the tile, must be >= 0
+   * @param tileR r position of the tile, must be >= 0
    * @throws IllegalArgumentException if q, r is not valid
    * @throws IllegalStateException if no feature on given tile
    */
@@ -90,4 +99,8 @@ public interface IBoard {
    * @return
    */
   String boardToString();
+
+  boolean[] getRivers(int tileQ, int tileR);
+
+  void flipRiver(int tileQ, int tileR, util.TileEdge edge);
 }
