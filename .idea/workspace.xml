@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="720d0c78-a794-4199-bc43-98c85a445995" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/util/CityColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/TileImprovement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CivCityPlanner/model/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CivCityPlanner/model/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CivCityPlanner/util/ControllerMode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CivCityPlanner/util/ControllerMode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CivCityPlanner/view/BoardPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CivCityPlanner/view/BoardPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CivCityPlanner/view/IView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CivCityPlanner/view/IView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CivCityPlanner/view/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CivCityPlanner/view/View.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/IBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/ControllerMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/ControllerMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/TileImprovement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/TileImprovement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/BoardPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/BoardPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/IView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/IView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -113,11 +99,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/BoardPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="106" column="21" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="21" />
+            <state relative-caret-position="390">
+              <caret line="26" column="40" lean-forward="true" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7215#7216#0" expanded="true" />
+                <element signature="e#9937#9938#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -126,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/util/TileImprovement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+            <state relative-caret-position="-106">
+              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -221,7 +207,6 @@
         <option value="$PROJECT_DIR$/src/util/Feature.java" />
         <option value="$PROJECT_DIR$/src/util/Terrain.java" />
         <option value="$PROJECT_DIR$/src/util/TileEdge.java" />
-        <option value="$PROJECT_DIR$/src/util/TileImprovement.java" />
         <option value="$PROJECT_DIR$/src/view/IView.java" />
         <option value="$PROJECT_DIR$/src/util/ControllerMode.java" />
         <option value="$PROJECT_DIR$/src/model/IBoard.java" />
@@ -230,6 +215,7 @@
         <option value="$PROJECT_DIR$/src/util/CityColor.java" />
         <option value="$PROJECT_DIR$/src/view/View.java" />
         <option value="$PROJECT_DIR$/src/controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/util/TileImprovement.java" />
         <option value="$PROJECT_DIR$/src/view/BoardPanel.java" />
       </list>
     </option>
@@ -237,7 +223,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="5" />
     <option name="y" value="23" />
-    <option name="width" value="1374" />
+    <option name="width" value="1189" />
     <option name="height" value="830" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -252,17 +238,6 @@
             <path>
               <item name="CivCityPlanner" type="b2602c69:ProjectViewProjectNode" />
               <item name="CivCityPlanner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CivCityPlanner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CivCityPlanner" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CivCityPlanner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CivCityPlanner" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="tile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CivCityPlanner" type="b2602c69:ProjectViewProjectNode" />
@@ -302,7 +277,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560662642652" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560664771060" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RunDashboard">
@@ -340,10 +315,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="5" y="23" width="1374" height="830" extended-state="0" />
+    <frame x="5" y="23" width="1189" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18393393" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2136007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -435,13 +410,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="5" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/TileImprovement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -552,13 +520,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/TileImprovement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-106">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/BoardPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="106" column="21" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="21" />
+        <state relative-caret-position="390">
+          <caret line="26" column="40" lean-forward="true" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7215#7216#0" expanded="true" />
+            <element signature="e#9937#9938#0" expanded="true" />
           </folding>
         </state>
       </provider>

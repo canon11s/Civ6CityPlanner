@@ -112,6 +112,56 @@ public class BoardPanel extends JPanel {
           image = ImageIO.read(new File("resources/tile/CommercialHub.png"));
           g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
           break;
+        case GENERIC_IMPROVEMENT:
+          image = ImageIO.read(new File("resources/tile/Builder.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case CAMPUS:
+          image = ImageIO.read(new File("resources/tile/Campus.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case HOLY_SITE:
+          image = ImageIO.read(new File("resources/tile/HolySite.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case THEATER_SQUARE:
+          image = ImageIO.read(new File("resources/tile/TheaterSquare.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case ENCAMPMENT:
+          image = ImageIO.read(new File("resources/tile/Encampment.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case NEIGHBORHOOD:
+          image = ImageIO.read(new File("resources/tile/Neighborhood.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case SPACEPORT:
+          image = ImageIO.read(new File("resources/tile/Spaceport.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case HARBOR:
+          image = ImageIO.read(new File("resources/tile/Harbor.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case INDUSTRIAL_ZONE:
+          image = ImageIO.read(new File("resources/tile/IndustrialZone.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case ENTERTAINMENT_COMPLEX:
+          image = ImageIO.read(new File("resources/tile/EntertainmentComplex.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case AERODROME:
+          image = ImageIO.read(new File("resources/tile/Aerodrome.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case AQUEDUCT:
+          image = ImageIO.read(new File("resources/tile/Aqueduct.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+          case NONE:
+          break;
       }
     } catch (IOException e) {
       throw new IllegalStateException("Could not read desired file. " + improvement.toString() + " image.");
