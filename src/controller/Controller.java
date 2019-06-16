@@ -18,6 +18,8 @@ public class Controller {
   private util.ControllerMode mode;
   private util.Terrain terrain;
   private util.Feature feature;
+  private util.CityColor color;
+  private util.TileImprovement improvement;
   private boolean hills;
   private ArrayList<util.ControllerMode> modesUsed;
 
@@ -57,9 +59,21 @@ public class Controller {
           }
           view.redraw();
           break;
+        case PLACE_IMPROVEMENT:
+          p = pixToTileCoord(pixelX, pixelY, hexRadius);
+          q = p.x;
+          r = p.y;
+          if (r < 0 || r > 2 * board.getSize() || q < Math.max(board.getSize() - r, 0) || q > Math.min(2 * board.getSize(), 3 * board.getSize() - r)) {
+            JOptionPane.showMessageDialog(null, "Actions can not be performed outside of the tiled board.");
+          } else {
+            board.placeImprovement(q, r, color, improvement);
+          }
+          view.redraw();
+          break;
         case NONE:
           JOptionPane.showMessageDialog(null, "Select a mode to perform an action on the board.");
           break;
+
       }
   }
 
@@ -72,6 +86,7 @@ public class Controller {
     buttonClickedMap.put("Edit River", new EditRiverAction());
     buttonClickedMap.put("Zoom In", new ZoomInAction());
     buttonClickedMap.put("Zoom Out", new ZoomOutAction());
+    buttonClickedMap.put("Place Improvement", new PlaceImprovementAction());
 
     buttonListener.setButtonClickedActionMap(buttonClickedMap);
     this.view.addActionListener(buttonListener);
@@ -89,6 +104,19 @@ public class Controller {
       terrain = view.chosenTerrain();
       feature = view.chosenFeature();
       hills = view.chosenHills();
+    }
+  }
+
+  class PlaceImprovementAction implements Runnable {
+    public void run() {
+      if (!modesUsed.contains(ControllerMode.PLACE_IMPROVEMENT)) {
+        modesUsed.add(ControllerMode.PLACE_IMPROVEMENT);
+        JOptionPane.showMessageDialog(null,
+                "Click a tile to place the selected improvement.");
+      }
+      mode = ControllerMode.PLACE_IMPROVEMENT;
+      color = view.chosenColor();
+      improvement = view.chosenImprovement();
     }
   }
 

@@ -1,6 +1,8 @@
 package model;
 
+import util.CityColor;
 import util.TileEdge;
+import util.TileImprovement;
 
 public class Board implements IBoard {
 
@@ -12,24 +14,13 @@ public class Board implements IBoard {
   private Tile[][] board;
 
   public Board() {
-    size = 10;
+    size = 15;
     board = new Tile[2 * size + 1][2 * size + 1];
     for (int i = 0; i <= 2 * size; i++) {
       for (int j = Math.max(size - i, 0); j <= Math.min(2 * size, 3 * size - i); j++) {
         board[i][j] = new Tile();
       }
     }
-//    for (boolean[] a : rivers) {
-//      for (boolean b : a) {
-//        if (b) {
-//          System.out.print('X');
-//        } else {
-//          System.out.print('O');
-//        }
-//        System.out.print(" ");
-//      }
-//      System.out.print("\n");
-//    }
   }
 
   @Override
@@ -156,5 +147,25 @@ public class Board implements IBoard {
         }
         break;
     }
+  }
+
+  @Override
+  public void placeImprovement(int q, int r, CityColor color, TileImprovement improvement) {
+    board[q][r].changeImprovement(color, improvement);
+  }
+
+  @Override
+  public CityColor getColor(int i, int j) {
+    return board[i][j].getColor();
+  }
+
+  @Override
+  public TileImprovement getImprovement(int i, int j) {
+    return board[i][j].getImprovement();
+  }
+
+  @Override
+  public boolean hasImprovement(int i, int j) {
+    return board[i][j].hasImprovement();
   }
 }

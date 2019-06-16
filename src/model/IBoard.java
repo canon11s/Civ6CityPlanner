@@ -1,5 +1,8 @@
 package model;
 
+import util.CityColor;
+import util.TileImprovement;
+
 /**
  * Interface to represent the board of a civ 6 game. Orientation of the hex tiles is the same as is
  * present in Civ 6: vertical on either side, with a point on top and bottom.
@@ -103,4 +106,12 @@ public interface IBoard {
   boolean[] getRivers(int tileQ, int tileR);
 
   void flipRiver(int tileQ, int tileR, util.TileEdge edge);
+
+  void placeImprovement(int q, int r, CityColor color, TileImprovement improvement);
+
+  util.CityColor getColor(int i, int j);
+
+  util.TileImprovement getImprovement(int i, int j);
+
+  boolean hasImprovement(int i, int j);
 }

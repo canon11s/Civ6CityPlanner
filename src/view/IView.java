@@ -37,4 +37,10 @@ public interface IView {
   util.Feature chosenFeature();
 
   boolean chosenHills();
+
+  void centerBoard();
+
+  util.CityColor chosenColor();
+
+  util.TileImprovement chosenImprovement();
 }

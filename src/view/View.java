@@ -7,6 +7,10 @@ import javax.swing.*;
 
 import controller.Controller;
 import model.IBoard;
+import util.CityColor;
+import util.Feature;
+import util.Terrain;
+import util.TileImprovement;
 
 public class View extends JFrame implements IView {
   private BoardPanel boardPanel;
@@ -15,17 +19,20 @@ public class View extends JFrame implements IView {
   private JButton editRiver;
   private JButton zoomIn;
   private JButton zoomOut;
+  private JButton placeImprovement;
+  private JComboBox colorComboBox;
+  private JComboBox improvementComboBox;
   private JComboBox terrainComboBox;
   private JCheckBox hillsCheckBox;
   private JComboBox featureComboBox;
   private JScrollPane scrollPane;
-  private int[] hexSizes = new int[]{20, 35, 50, 75, 100};
+  private int[] hexSizes = new int[]{20, 30, 50, 90, 150};
 
 
   public View(IBoard board) {
     super("Civilization 6 City Planner");
     hexRadius = 50;
-    this.setBackground(new Color(109, 99, 52));
+    this.getContentPane().setBackground(new Color(109, 99, 52));
     //boardPanel - section to house game board
     this.boardPanel = new BoardPanel(board);
     //Scroll bars for easier use
@@ -38,11 +45,9 @@ public class View extends JFrame implements IView {
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     JPanel terrainPanel = new JPanel(new FlowLayout());
     //Terrain, hills, feature combo boxes
-    String[] terrainStrings = util.Terrain.stringArray();
-    terrainComboBox = new JComboBox(terrainStrings);
+    terrainComboBox = new JComboBox(Terrain.stringArray());
     hillsCheckBox = new JCheckBox("Hills?");
-    String[] featureStrings = util.Feature.stringArray();
-    featureComboBox = new JComboBox(featureStrings);
+    featureComboBox = new JComboBox(Feature.stringArray());
     //Button to be enter setting terrain mode
     editTerrain = new JButton("Set tiles");
     editTerrain.setActionCommand("Edit Terrain");
@@ -60,13 +65,13 @@ public class View extends JFrame implements IView {
 
     terrainPanel.add(editRiver);
 
-    JPanel settlementPanel = new JPanel();
+    JPanel improvementPanel = new JPanel();
     JPanel settingsPanel = new JPanel();
 
     //Tabbed pane for control
     JTabbedPane controlPane = new JTabbedPane();
     controlPane.addTab("Terrain and Rivers", terrainPanel);
-    controlPane.addTab("Settlement", settlementPanel);
+    controlPane.addTab("Settlement", improvementPanel);
     controlPane.addTab("Settings", settingsPanel);
 
     JLabel zoomLabel = new JLabel("Zoom");
@@ -79,6 +84,15 @@ public class View extends JFrame implements IView {
     zoomIn.setActionCommand("Zoom In");
     zoomOut.setActionCommand("Zoom Out");
 
+    placeImprovement = new JButton("Place");
+    placeImprovement.setActionCommand("Place Improvement");
+    colorComboBox = new JComboBox(CityColor.stringArray());
+    improvementComboBox = new JComboBox(TileImprovement.stringArray());
+
+    improvementPanel.add(colorComboBox);
+    improvementPanel.add(improvementComboBox);
+    improvementPanel.add(placeImprovement);
+
     mainPanel.add(scrollPane);
     mainPanel.add(controlPane);
     this.add(mainPanel);
@@ -88,10 +102,7 @@ public class View extends JFrame implements IView {
 
   @Override
   public void display() {
-    scrollPane.getHorizontalScrollBar().setValue(scrollPane.getHorizontalScrollBar().getMaximum());
-    scrollPane.getHorizontalScrollBar().setValue(scrollPane.getHorizontalScrollBar().getValue() / 2);
-    scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
-    scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getValue() / 2);
+    centerBoard();
     this.setVisible(true);
   }
 
@@ -109,6 +120,8 @@ public class View extends JFrame implements IView {
       throw new IllegalStateException("Unrecognized hex radius: " + Integer.toString(hexRadius));
     }
     boardPanel.setHexRadius(hexRadius);
+    redraw();
+    centerBoard();
   }
 
   @Override
@@ -122,9 +135,11 @@ public class View extends JFrame implements IView {
     } else if (hexRadius == hexSizes[1]) {
       hexRadius = hexSizes[0];
     } else if (hexRadius != hexSizes[0]) {
-      throw new IllegalStateException("Unrecognized hex radius: " + Integer.toString(hexRadius));
+      throw new IllegalStateException("Unrecognized hex radius: " + hexRadius);
     }
     boardPanel.setHexRadius(hexRadius);
+    redraw();
+    centerBoard();
   }
 
   @Override
@@ -138,11 +153,20 @@ public class View extends JFrame implements IView {
   }
 
   @Override
+  public void centerBoard() {
+    scrollPane.getHorizontalScrollBar().setValue(scrollPane.getHorizontalScrollBar().getMaximum());
+    scrollPane.getHorizontalScrollBar().setValue(scrollPane.getHorizontalScrollBar().getValue() / 2);
+    scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
+    scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getValue() / 2);
+  }
+
+  @Override
   public void addActionListener(ActionListener actionListener) {
     editTerrain.addActionListener(actionListener);
     editRiver.addActionListener(actionListener);
     zoomIn.addActionListener(actionListener);
     zoomOut.addActionListener(actionListener);
+    placeImprovement.addActionListener(actionListener);
   }
 
   @Override
@@ -154,6 +178,18 @@ public class View extends JFrame implements IView {
   public util.Feature chosenFeature() {
     return util.Feature.stringToEnum(featureComboBox.getSelectedItem().toString());
   }
+
+  @Override
+  public util.CityColor chosenColor() {
+    return util.CityColor.stringToEnum(colorComboBox.getSelectedItem().toString());
+  }
+
+  @Override
+  public util.TileImprovement chosenImprovement() {
+    return util.TileImprovement.stringToEnum(improvementComboBox.getSelectedItem().toString());
+  }
+
+
 
   @Override
   public boolean chosenHills() {

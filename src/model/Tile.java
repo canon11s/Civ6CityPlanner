@@ -1,5 +1,8 @@
 package model;
 
+import util.CityColor;
+import util.TileImprovement;
+
 /**
  * Representation of a single tile on the game board
  */
@@ -21,6 +24,8 @@ public class Tile {
   private boolean rightRiver;
   private boolean bottomRightRiver;
   private boolean bottomLeftRiver;
+  private util.TileImprovement improvement;
+  private util.CityColor color;
 
   public Tile() {
     terrain = util.Terrain.GRASSLAND;
@@ -32,7 +37,10 @@ public class Tile {
     rightRiver = false;
     bottomRightRiver = false;
     bottomLeftRiver = false;
+    color = CityColor.NONE;
+    improvement = TileImprovement.NONE;
   }
+
 
   public void setTerrain(util.Terrain terrain) {
     this.terrain = terrain;
@@ -116,5 +124,22 @@ public class Tile {
         return bottomRightRiver;
     }
     throw new IllegalArgumentException("Edge not recognized");
+  }
+
+  public void changeImprovement(CityColor color, TileImprovement improvement) {
+    this.color = color;
+    this.improvement = improvement;
+  }
+
+  public CityColor getColor() {
+    return color;
+  }
+
+  public TileImprovement getImprovement() {
+    return improvement;
+  }
+
+  public boolean hasImprovement() {
+    return !(color == CityColor.NONE && improvement == TileImprovement.NONE);
   }
 }

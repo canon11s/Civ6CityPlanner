@@ -7,11 +7,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 
 
 import javax.imageio.ImageIO;
@@ -19,6 +21,8 @@ import javax.swing.*;
 
 import controller.Controller;
 import model.IBoard;
+import util.CityColor;
+import util.TileImprovement;
 
 public class BoardPanel extends JPanel {
   private int hexRadius;
@@ -43,11 +47,10 @@ public class BoardPanel extends JPanel {
 
     hexRadius = 50;
     this.board = board;
-    borderThickness = 4;
+    borderThickness = 5;
     this.setBackground(new Color(109, 99, 52));
-    this.setPreferredSize(new Dimension((int) (hexRadius * (Math.sqrt(3) * 2 * board.getSize()
-            +  Math.sqrt(3)/2. * 2 * board.getSize())),
-            (int) (hexRadius * (3./2 * 2 * board.getSize()))));
+    this.setPreferredSize(new Dimension(2 * (int) (hexRadius * (Math.sqrt(3) * board.getSize()  +  Math.sqrt(3)/2. * board.getSize())),
+           2 * (int) (hexRadius * (3./2 * board.getSize()))));
     repaint();
   }
 
@@ -67,6 +70,7 @@ public class BoardPanel extends JPanel {
                 (int) (hexRadius * (3./2 * j))));
       }
     }
+    //Draw hills
     for (int i = 0; i <= 2 * board.getSize(); i++) {
       for (int j = Math.max(board.getSize() - i, 0); j <= Math.min(2 * board.getSize(), 3 * board.getSize() - i); j++) {
         if (board.hasHills(i, j)) {
@@ -74,6 +78,16 @@ public class BoardPanel extends JPanel {
         }
       }
     }
+    //Draw cities/improvements/districts
+    for (int i = 0; i <= 2 * board.getSize(); i++) {
+      for (int j = Math.max(board.getSize() - i, 0); j <= Math.min(2 * board.getSize(), 3 * board.getSize() - i); j++) {
+        if (board.hasImprovement(i, j)) {
+          drawImprovement((int) (hexRadius * (Math.sqrt(3) * i  +  Math.sqrt(3)/2. * j)), (int) (hexRadius * (3./2 * j) + hexRadius / 2),
+                  board.getColor(i, j), board.getImprovement(i, j) ,g2);
+        }
+      }
+    }
+    //Draw rivers
     for (int i = 0; i <= 2 * board.getSize(); i++) {
       for (int j = Math.max(board.getSize() - i, 0); j <= Math.min(2 * board.getSize(), 3 * board.getSize() - i); j++) {
         drawRivers((int) (hexRadius * (Math.sqrt(3) * i  +  Math.sqrt(3)/2. * j)), (int)
@@ -82,8 +96,35 @@ public class BoardPanel extends JPanel {
     }
   }
 
+  private void drawImprovement(int x, int y, CityColor color, TileImprovement improvement, Graphics2D g2) {
+    if (color != CityColor.NONE) {
+      g2.setPaint(color.toColor());
+      g2.fill(new Ellipse2D.Double(x - hexRadius / 3, y - hexRadius / 3, hexRadius * 2 / 3, hexRadius * 2 / 3));
+    }
+    try {
+      BufferedImage image;
+      switch (improvement) {
+        case CITY_CENTER:
+          image = ImageIO.read(new File("resources/tile/CityCenter.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+        case COMMERCIAL_HUB:
+          image = ImageIO.read(new File("resources/tile/CommercialHub.png"));
+          g2.drawImage(image, x - hexRadius / 4, y - hexRadius / 4, hexRadius / 2, hexRadius / 2, null);
+          break;
+      }
+    } catch (IOException e) {
+      throw new IllegalStateException("Could not read desired file. " + improvement.toString() + " image.");
+    }
+
+  }
+
   public void setHexRadius(int size) {
-    hexRadius = size;
+    this.hexRadius = size;
+    this.borderThickness = hexRadius / 10;
+    this.setPreferredSize(new Dimension((int) (hexRadius * (Math.sqrt(3) * 2 * board.getSize()
+            +  Math.sqrt(3)/2. * 2 * board.getSize())),
+            (int) (hexRadius * (3./2 * 2 * board.getSize()))));
   }
 
   private void drawRivers(int x, int y, boolean[] rivers, Graphics2D g2) {
